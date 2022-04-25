@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using SmartCarRental.Models;
 
-namespace Courses.Areas.Identity.Pages.Account
+namespace SmartCarRental.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class LoginModel : PageModel

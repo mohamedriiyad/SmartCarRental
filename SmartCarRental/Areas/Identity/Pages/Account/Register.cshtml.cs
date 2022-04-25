@@ -5,8 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using Courses.Data;
-using Courses.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -18,7 +16,7 @@ using Microsoft.Extensions.Logging;
 using SmartCarRental.Data;
 using SmartCarRental.Models;
 
-namespace Courses.Areas.Identity.Pages.Account
+namespace SmartCarRental.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class RegisterModel : PageModel
@@ -92,16 +90,12 @@ namespace Courses.Areas.Identity.Pages.Account
         {
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-            var university = await _db.Universities.FindAsync(Input.UniversityId);
-            if (university == null)
-                ModelState.AddModelError(string.Empty, "University Field is required.");
-            if (ModelState.IsValid && university != null)
+            if (ModelState.IsValid)
             {
                 var user = new User
                 {
                     UserName = Input.Username,
                     Email = Input.Email,
-                    UniversityId = Input.UniversityId,
                     PhoneNumber = Input.PhoneNumber
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
