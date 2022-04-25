@@ -9,8 +9,6 @@ namespace SmartCarRental.ViewModels.Users
     {
         public string Id { get; set; }
         [Required]
-        public int UniversityId { get; set; }
-        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }

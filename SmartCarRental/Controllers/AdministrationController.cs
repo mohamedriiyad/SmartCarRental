@@ -127,25 +127,20 @@ namespace SmartCarRental.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(UserSelfEditVM input)
+        public async Task<IActionResult> Edit(UserEditVM input)
         {
             if (!ModelState.IsValid)
             {
                 return View(input);
             }
 
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-            {
-                return NotFound($"Unable to load user with Username '{_userManager.GetUserName(User)}'.");
-            }
-            var userInDb = await _db.Users.FindAsync(user.Id);
+            var userInDb = await _db.Users.FindAsync(input.Id);
             userInDb.Email = input.Email;
             userInDb.PhoneNumber = input.PhoneNumber;
             await _db.SaveChangesAsync();
 
-            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-            var changePasswordResult = await _userManager.ResetPasswordAsync(user, token, input.NewPassword); 
+            var token = await _userManager.GeneratePasswordResetTokenAsync(userInDb);
+            var changePasswordResult = await _userManager.ResetPasswordAsync(userInDb, token, input.NewPassword); 
             if (!changePasswordResult.Succeeded)
             {
                 foreach (var error in changePasswordResult.Errors)
