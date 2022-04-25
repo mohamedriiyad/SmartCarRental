@@ -1,0 +1,166 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using SmartCarRental.Data;
+using SmartCarRental.Models;
+
+namespace SmartCarRental.Controllers
+{
+    public class CarRentsController : Controller
+    {
+        private readonly ApplicationDbContext _context;
+
+        public CarRentsController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+        // GET: CarRents
+        public async Task<IActionResult> Index()
+        {
+            var applicationDbContext = _context.CarRents.Include(c => c.Car).Include(c => c.Renter);
+            return View(await applicationDbContext.ToListAsync());
+        }
+
+        // GET: CarRents/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var carRent = await _context.CarRents
+                .Include(c => c.Car)
+                .Include(c => c.Renter)
+                .FirstOrDefaultAsync(m => m.CarId == id);
+            if (carRent == null)
+            {
+                return NotFound();
+            }
+
+            return View(carRent);
+        }
+
+        // GET: CarRents/Create
+        public IActionResult Create()
+        {
+            ViewData["CarId"] = new SelectList(_context.Cars, "Id", "Description");
+            ViewData["RenterId"] = new SelectList(_context.Users, "Id", "Id");
+            return View();
+        }
+
+        // POST: CarRents/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("RenterId,CarId")] CarRent carRent)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(carRent);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["CarId"] = new SelectList(_context.Cars, "Id", "Description", carRent.CarId);
+            ViewData["RenterId"] = new SelectList(_context.Users, "Id", "Id", carRent.RenterId);
+            return View(carRent);
+        }
+
+        // GET: CarRents/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var carRent = await _context.CarRents.FindAsync(id);
+            if (carRent == null)
+            {
+                return NotFound();
+            }
+            ViewData["CarId"] = new SelectList(_context.Cars, "Id", "Description", carRent.CarId);
+            ViewData["RenterId"] = new SelectList(_context.Users, "Id", "Id", carRent.RenterId);
+            return View(carRent);
+        }
+
+        // POST: CarRents/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("RenterId,CarId")] CarRent carRent)
+        {
+            if (id != carRent.CarId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(carRent);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!CarRentExists(carRent.CarId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["CarId"] = new SelectList(_context.Cars, "Id", "Description", carRent.CarId);
+            ViewData["RenterId"] = new SelectList(_context.Users, "Id", "Id", carRent.RenterId);
+            return View(carRent);
+        }
+
+        // GET: CarRents/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var carRent = await _context.CarRents
+                .Include(c => c.Car)
+                .Include(c => c.Renter)
+                .FirstOrDefaultAsync(m => m.CarId == id);
+            if (carRent == null)
+            {
+                return NotFound();
+            }
+
+            return View(carRent);
+        }
+
+        // POST: CarRents/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var carRent = await _context.CarRents.FindAsync(id);
+            _context.CarRents.Remove(carRent);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool CarRentExists(int id)
+        {
+            return _context.CarRents.Any(e => e.CarId == id);
+        }
+    }
+}
