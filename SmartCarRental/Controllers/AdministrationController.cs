@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace SmartCarRental.Controllers
 {
+    [Authorize]
     public class AdministrationController : Controller
     {
         private readonly UserManager<User> _userManager;
