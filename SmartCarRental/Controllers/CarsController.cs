@@ -20,6 +20,11 @@ namespace SmartCarRental.Controllers
         }
 
         // GET: Cars
+        public async Task<IActionResult> AdminIndex()
+        {
+            var applicationDbContext = _context.Cars.Include(c => c.User);
+            return View(await applicationDbContext.ToListAsync());
+        }
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Cars.Include(c => c.User);
