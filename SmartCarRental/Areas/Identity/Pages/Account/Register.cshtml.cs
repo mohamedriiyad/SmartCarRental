@@ -16,7 +16,7 @@ using Microsoft.Extensions.Logging;
 using SmartCarRental.Data;
 using SmartCarRental.Models;
 
-namespace SmartCarRental.Areas.Identity.Pages.Account
+namespace SmartCarRental.Areas.Identity.Pages.Account 
 {
     [AllowAnonymous]
     public class RegisterModel : PageModel
