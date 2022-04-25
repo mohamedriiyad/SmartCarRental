@@ -92,6 +92,14 @@ namespace SmartCarRental.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
+                string roleName;
+                if (Input.RoleId == 0)
+                    roleName = "renter";
+                else
+                    roleName = "user";
+                if(!await _roleManager.RoleExistsAsync(roleName))
+                    await _roleManager.CreateAsync(new IdentityRole(roleName));
+
                 var user = new User
                 {
                     UserName = Input.Username,
@@ -102,6 +110,7 @@ namespace SmartCarRental.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
+                    await _userManager.AddToRoleAsync(user, roleName);
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
