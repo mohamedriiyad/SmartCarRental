@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Create</h1>
+@*<h1>Create</h1>
 
 <h4>CarRent</h4>
 <hr />
@@ -15,11 +15,11 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="RenterId" class="control-label"></label>
-                <select asp-for="RenterId" class ="form-control" asp-items="ViewBag.RenterId"></select>
+                <select asp-for="RenterId" class="form-control" asp-items="ViewBag.RenterId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="CarId" class="control-label"></label>
-                <select asp-for="CarId" class ="form-control" asp-items="ViewBag.CarId"></select>
+                <select asp-for="CarId" class="form-control" asp-items="ViewBag.CarId"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -30,7 +30,64 @@
 
 <div>
     <a asp-action="Index">Back to List</a>
+</div>*@
+
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="pe-7s-add-user icon-gradient bg-happy-itmeo">
+                </i>
+            </div>
+            <div>
+                Create new Department
+                <div class="page-title-subheading">
+
+                </div>
+            </div>
+        </div>
+        <div class="page-title-actions">
+
+            <div class="d-inline-block">
+                <p>
+                    <a asp-action="Index" class="btn btn-primary">Back to List</a>
+                </p>
+            </div>
+        </div>
+    </div>
 </div>
+<div class="row clearfix">
+    <div class="col-lg-6" style="margin: 6px auto;">
+
+        <div class="card">
+            <div class="body">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div style="margin-top:50px" class="form-group">
+                        <div class="col-md-12">
+                            <select asp-for="RenterId" class="form-control" asp-items="ViewBag.RenterId">
+                                <option value="0">-- Please Select Renter  --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <select asp-for="CarId" class="form-control" asp-items="ViewBag.CarId">
+                                <option value="0">-- Please Select Your Renting Car --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input style="margin: 10px auto; display: block;" type="submit" value="Create" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
