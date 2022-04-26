@@ -1,0 +1,76 @@
+﻿@model IEnumerable<SmartCarRental.ViewModels.Cars.CarVM>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!-- Page Header Start -->
+<div class="container-fluid page-header">
+    <h1 class="display-3 text-uppercase text-white mb-3">Your Bookings</h1>
+    <div class="d-inline-flex text-white">
+        <h6 class="text-uppercase m-0"><a class="text-white" href="">Home</a></h6>
+        <h6 class="text-body m-0 px-3">/</h6>
+        <h6 class="text-uppercase text-body m-0">Your Bookings</h6>
+    </div>
+</div>
+<!-- Page Header Start -->
+
+<div class="container-fluid pt-5">
+    <div class="container pt-5 pb-3">
+        <table class="table" style="text-align:center">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        Model
+                    </th>
+                    <th>
+                        Location 1
+                    </th>
+                    <th>
+                        Location 2
+                    </th>
+                    <th>
+                        Phone
+                    </th>
+                    <th>
+                        AvailableFrom
+                    </th>
+                    <th>--------</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Model)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstLocation)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SecondLocation)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Phone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AvailableFrom)
+                    </td>
+                    <td style="font-size: 20px;">
+                        <a style="color: #afafaa;" data-toggle="tooltip" data-placement="left" title="Edit" href="@Url.Action("Create", "UserRents", new { id = item.Id})"><i title="Edit" class="fa fa-pen"></i></a>
+
+                        <a href="#" style="color:red;" data-placement="left" data-toggle="modal" data-target=".bd-example-modal-sm" title="Delete" onclick="confirm('@item.Id')"><i class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>        
+</div>

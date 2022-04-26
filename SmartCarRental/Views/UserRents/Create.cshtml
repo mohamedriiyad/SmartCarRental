@@ -1,0 +1,108 @@
+﻿@model SmartCarRental.ViewModels.UserRents.UserRentVM
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<!-- Page Header Start -->
+<div class="container-fluid page-header">
+    <h1 class="display-3 text-uppercase text-white mb-3">Car Booking</h1>
+    <div class="d-inline-flex text-white">
+        <h6 class="text-uppercase m-0"><a class="text-white" href="">Home</a></h6>
+        <h6 class="text-body m-0 px-3">/</h6>
+        <h6 class="text-uppercase text-body m-0">Car Booking</h6>
+    </div>
+</div>
+<!-- Page Header Start -->
+
+<!-- Detail Start -->
+<div class="container-fluid pt-5">
+    <div class="container pt-5 pb-3">
+        <div style="font-size: 25px;" asp-validation-summary="All" class="text-danger"></div>
+        <h1 class="display-4 text-uppercase mb-5">@ViewBag.Car.Name</h1>
+        <div class="row align-items-center pb-2">
+            <div class="col-lg-6 mb-4">
+                <img class="img-fluid" src="~/img/bg-banner.jpg" alt="">
+            </div>
+            <div class="col-lg-6 mb-4">
+                <h4 class="mb-2">
+                    <i class="fa fa-car text-primary mr-2"></i>Model:  @ViewBag.Car.Model
+                </h4>
+                <div class="d-flex mb-3" style="margin-bottom: 0px !important;">
+                    <i class="fa fa-search-location text-primary mr-2"></i>
+                    <h6 class="mr-2">Location 1:</h6>
+                    <div class="d-flex align-items-center justify-content-center mb-1">
+                        @ViewBag.Car.FirstLocation
+                    </div>
+                </div>
+                <div class="d-flex mb-3">
+                    <i class="fa fa-search-location text-primary mr-2"></i>
+                    <h6 class="mr-2">Location 2:</h6>
+                    <div class="d-flex align-items-center justify-content-center mb-1">
+                        @ViewBag.Car.SecondLocation
+                    </div>
+                </div>
+                <p>Tempor erat elitr at rebum at at clita aliquyam consetetur. Diam dolor diam ipsum et, tempor voluptua sit consetetur sit. Aliquyam diam amet diam et eos sadipscing labore. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit. Sanctus clita duo justo et tempor consetetur takimata eirmod, dolores takimata consetetur invidunt</p>
+                <div class="d-flex pt-1">
+                    <i class="fa fa-phone text-primary mr-2"></i>
+                    <h6 class="mr-2">Phone:</h6>
+                    <div class="d-flex align-items-center justify-content-center mb-1">
+                        @ViewBag.Car.Phone
+                    </div>
+                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                    <i class="fa fa-eye text-primary mr-2"></i>
+                    <h6>Avaliable: &nbsp;</h6>
+                    <div class="d-flex align-items-center justify-content-center mb-1">
+                        @ViewBag.Car.AvailableFrom &nbsp;
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Detail End -->
+<!-- Car Booking Start -->
+<div class="container-fluid pb-5" style="padding-top: 0px !important;">
+    <div class="container">
+        <div class="row">
+
+            <form asp-action="CreateRent" style="width: 100%;">
+                <input hidden asp-for="Id" />
+                <div class="col-lg-4" style="margin-right: auto; margin-left: auto;">
+                    <div class="">
+                        <button type="submit" class="btn btn-block btn-primary py-3">Reserve Now</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Car Booking End -->
+@*<hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="UserId" class="control-label"></label>
+                    <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CarId" class="control-label"></label>
+                    <select asp-for="CarId" class="form-control" asp-items="ViewBag.CarId"></select>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>*@
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
