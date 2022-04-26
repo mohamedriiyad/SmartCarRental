@@ -80,7 +80,7 @@ namespace SmartCarRental.Controllers
                 return NotFound();
             }
 
-            var carRent = await _context.CarRents.FindAsync(id);
+            var carRent = await _context.CarRents.Where(c => c.CarId == id).FirstOrDefaultAsync();
             if (carRent == null)
             {
                 return NotFound();
