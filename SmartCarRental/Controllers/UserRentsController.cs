@@ -67,9 +67,9 @@ namespace SmartCarRental.Controllers
         }
 
         // GET: UserRents/Create
-        public IActionResult Create(int id)
+        public async Task<IActionResult> Create(int id)
         {
-            var car = _context.Cars.Include(c => c.User).Select(c => new CarVM{ 
+            var car = _context.Cars.Include(c => c.User).Select(c => new CarVM {
                 Id = c.Id,
                 Name = c.Name,
                 Model = c.Model,
@@ -80,6 +80,8 @@ namespace SmartCarRental.Controllers
                 AvailableFrom = c.AvailableFrom
             }).FirstOrDefault();
             ViewData["Car"] = car;
+            var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
+            ViewData["CarRent"] = _context.UserRents.Find(new object[] { car.Id, currentUser.Id });
             return View(new UserRentVM { Id = car.Id});
         }
 
@@ -113,7 +115,8 @@ namespace SmartCarRental.Controllers
                 return View("Create", input);
             }
 
-            _context.UserRents.Add(userRent);  
+            _context.UserRents.Add(userRent);
+            _context.CarRents.Add(new CarRent { CarId = input.Id, RenterId = car.UserId });
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
@@ -194,14 +197,22 @@ namespace SmartCarRental.Controllers
         }
 
         // POST: UserRents/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        [HttpPost]
+        public async Task<JsonResult> DeleteConfirmed(int id)
         {
-            var userRent = await _context.UserRents.FindAsync(id);
+            var result = false;
+            var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
+            var car = await _context.Cars.FindAsync(id);
+            var userRent = await _context.UserRents.FindAsync(new object[] { id, currentUser.Id });
+            var carRent = await _context.CarRents.FindAsync(new object[] { id, car.UserId });
+            if (userRent == null)
+                return Json(result);
+
             _context.UserRents.Remove(userRent);
+            _context.CarRents.Remove(carRent);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            result = true;
+            return Json(result);
         }
 
         private bool UserRentExists(int id)
