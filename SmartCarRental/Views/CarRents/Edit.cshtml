@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Edit</h1>
+@*<h1>Edit</h1>
 
 <h4>CarRent</h4>
 <hr />
@@ -24,6 +24,62 @@
 
 <div>
     <a asp-action="Index">Back to List</a>
+</div>*@
+
+
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="pe-7s-pen icon-gradient bg-happy-itmeo">
+                </i>
+            </div>
+            <div>
+                Edit
+                <div class="page-title-subheading">
+
+                </div>
+            </div>
+        </div>
+        <div class="page-title-actions">
+
+            <div class="d-inline-block">
+                <p>
+                    <a asp-controller="CarRents" asp-action="Index" class="btn btn-primary">Back to List</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row clearfix">
+    <div class="col-lg-6" style="margin: 6px auto;">
+
+        <div class="card">
+            <div class="body">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="CarId" />
+                    <div style="margin-top:50px" class="form-group">
+                        <div class="col-md-12">
+                            <select asp-for="RenterId" class="form-control" asp-items="ViewBag.RenterId">
+                                <option value="0">-- Please Select Renter  --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <select asp-for="CarId" class="form-control" asp-items="ViewBag.CarId">
+                                <option value="0">-- Please Select Your Renting Car --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input style="margin: 10px auto; display: block;" type="submit" value="Update" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 @section Scripts {
