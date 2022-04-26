@@ -141,7 +141,14 @@
                                 <a href="testimonial.html" class="dropdown-item">Testimonial</a>
                             </div>
                         </div>
-                        <a href="contact.html" class="nav-item nav-link">Contact</a>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a style="color: #a38f8f;" asp-area="Identity" asp-page="/Account/Logout" class="nav-item nav-link">Logout</a>
+                        }
+                        else
+                        {
+                            <a style="color: #a38f8f;" asp-area="Identity" asp-page="/Account/Login" class="nav-item nav-link">Login</a>
+                        }
                     </div>
                 </div>
             </nav>
