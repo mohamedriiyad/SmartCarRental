@@ -83,7 +83,7 @@ namespace SmartCarRental.Controllers
                     AvailableFrom = car.AvailableFrom,
                     UserId = currentUser.Id
                 };
-                _context.Add(car);
+                _context.Add(newCar);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
