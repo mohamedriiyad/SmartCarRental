@@ -69,7 +69,7 @@ namespace SmartCarRental.Controllers
         // GET: UserRents/Create
         public async Task<IActionResult> Create(int id)
         {
-            var car = _context.Cars.Include(c => c.User).Select(c => new CarVM {
+            var car = _context.Cars.Include(c => c.User).Where(c => c.Id == id).Select(c => new CarVM {
                 Id = c.Id,
                 Name = c.Name,
                 Model = c.Model,

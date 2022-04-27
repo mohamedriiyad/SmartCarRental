@@ -1,255 +1,56 @@
-﻿@model IEnumerable<SmartCarRental.Models.Car>
+﻿@model SmartCarRental.ViewModels.Cars.CarTest
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@*<h1>Index</h1>
 
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Model)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.FirstLocation)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SecondLocation)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Description)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.AvailableFrom)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.User)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Model)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FirstLocation)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SecondLocation)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AvailableFrom)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.User.Id)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>*@
-<!--<div class="container-fluid p-0" style="margin-bottom: 90px;">
-    <div class="app-page-title">
-        <div class="page-title-wrapper">
-            <div class="page-title-heading">
-                <div class="page-title-icon">
-                    <i class="pe-7s-display1 icon-gradient bg-happy-itmeo">
-                    </i>
-                </div>
-                <div>
-                    Offered Cars
-                    <div class="page-title-subheading">
-
-                    </div>
+<!-- Search Start -->
+<form asp-controller="Cars" asp-action="Search">
+    <div class="container-fluid bg-white pt-3 px-lg-5">
+        <div class="row mx-n2">
+            <div class="col-xl-2 col-lg-4 col-md-6 px-2">
+                <div class="date mb-3">
+                    <input asp-for="Location" type="text" class="form-control p-4 " placeholder="Location" />
                 </div>
             </div>
-            <div class="page-title-actions">
-
-                <div class="d-inline-block">
-                    <p>
-                        <a asp-action="Create" class="btn btn-primary">
-                            Create &nbsp; <i class="pe-7s-add-user"></i>
-                        </a>
-                    </p>
+            <div class="col-xl-2 col-lg-4 col-md-6 px-2">
+                <div class="date mb-3" id="date" data-target-input="nearest">
+                    <input asp-for="Available" type="text" class="form-control p-4 datetimepicker-input" placeholder="Pickup Date"
+                           data-target="#date" data-toggle="datetimepicker" />
                 </div>
+            </div>
+            <div class="col-xl-2 col-lg-4 col-md-6 px-2">
+                <button class="btn btn-primary btn-block mb-3" type="submit" style="height: 50px;">Search</button>
             </div>
         </div>
     </div>
-    <div class="row clearfix">
-        <div class="col-lg-12">
-
-            <div class="card">
-                <div class="body">
-
-                    <div class="table-responsive">
-                        <input type="hidden" id="orderId" />
-                        <table class=" mb-0 table table-bordered col-lg-12" style="text-align: center">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Name)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Model)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.FirstLocation)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.SecondLocation)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Description)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.AvailableFrom)
-                                    </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.User.UserName)
-                                    </th>
-                                    <th>__________</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model)
-                                {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Name)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Model)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.FirstLocation)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.SecondLocation)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Description)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.AvailableFrom)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.User.UserName)
-                                        </td>
-                                        <td style="font-size: 20px;">
-                                            <a style="color: #afafaa;" data-toggle="tooltip" data-placement="left" title="Edit" href="@Url.Action(" Create", "UserRents" , new { id=item.Id})"><i title="Edit" class="pe-7s-pen"></i></a>
-
-                                            <a href="#" style="color:red;" data-placement="left" data-toggle="modal" data-target=".bd-example-modal-sm" title="Delete" onclick="confirm('@item.Id')"><i class="pe-7s-trash"></i></a>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>-->
-    <!--Modal-->
-    <!--<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content" style="margin-top: 77px;">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Confirm</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Are you sure you want to delete this item?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="deleteOrder()">Delete</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    @section Scripts {
-        <script>
-            var confirm = function (id) {
-                $("#orderId").val(id);
-            }
-
-            var deleteOrder = function () {
-                var _id = $("#orderId").val();
-                $.ajax({
-                    type: "POST",
-                    url: "/Cars/DeleteConfirmed",
-                    data: { id: _id },
-                    success: function (result) {
-                        if (result) {
-                            $("#deleteModal").fadeOut(500);
-                            $("#orderId").val(null);
-                            window.location.href = "/Cars/Index";
-                        } else {
-                            alert("Something went wrong while processing your request.");
-                        }
-                    }
-                });
-            }
-
-            var cancel = function () {
-                $("#deleteModal").fadeOut(500);
-            }
-        </script>
-
-    }
-
-</div>-->
-
-
+</form>
+<!-- Search End -->
 <!-- Rent A Car Start -->
 <div class="container-fluid py-5">
     <div class="container pt-5 pb-3">
         <h1 class="display-4 text-uppercase text-center mb-5">Find Your Car</h1>
         <div class="row">
-            @foreach (var item in Model)
+            @foreach (var item in ViewBag.cars)
             {
                 <div class="col-lg-4 col-md-6 mb-2">
                     <div class="rent-item mb-4">
                         <img class="img-fluid mb-4" src="~/img/car.png" alt="">
-                        <h4 class="text-uppercase mb-4">@Html.DisplayFor(modelItem => item.Name)</h4>
+                        <h4 class="text-uppercase mb-4">@item.Name</h4>
                         <div class="d-flex justify-content-center mb-4">
                             <div class="px-2">
                                 <i class="fa fa-car text-primary mr-1"></i>
-                                <span>@Html.DisplayFor(modelItem => item.Model)</span>
+                                <span>@item.Model</span>
                             </div>
                             <div class="px-2 border-left border-right">
                                 <i class="fa fa-cogs text-primary mr-1"></i>
-                                <span>@Html.DisplayFor(modelItem => item.Description)</span>
+                                <span>@item.Description</span>
                             </div>
                             <div class="px-2">
                                 <i class="fa fa-user text-primary mr-1"></i>
-                                <span>@Html.DisplayFor(modelItem => item.User.UserName)</span>
+                                <span>@item.User.UserName</span>
                             </div>
                         </div>
                         @*<a style="color: #afafaa;" data-toggle="tooltip" data-placement="left" title="Edit" href="@Url.Action(" Edit", "Cars" , new { id=item.Id})"><i title="Edit" class="pe-7s-pen"></i></a>*@
@@ -261,131 +62,131 @@
             }
 
             @*<div class="col-lg-4 col-md-6 mb-2">
-                <div class="rent-item mb-4">
-                    <img class="img-fluid mb-4" src="img/car-rent-1.png" alt="">
-                    <h4 class="text-uppercase mb-4">Mercedes Benz R3</h4>
-                    <div class="d-flex justify-content-center mb-4">
-                        <div class="px-2">
-                            <i class="fa fa-car text-primary mr-1"></i>
-                            <span>2015</span>
+                    <div class="rent-item mb-4">
+                        <img class="img-fluid mb-4" src="img/car-rent-1.png" alt="">
+                        <h4 class="text-uppercase mb-4">Mercedes Benz R3</h4>
+                        <div class="d-flex justify-content-center mb-4">
+                            <div class="px-2">
+                                <i class="fa fa-car text-primary mr-1"></i>
+                                <span>2015</span>
+                            </div>
+                            <div class="px-2 border-left border-right">
+                                <i class="fa fa-cogs text-primary mr-1"></i>
+                                <span>AUTO</span>
+                            </div>
+                            <div class="px-2">
+                                <i class="fa fa-road text-primary mr-1"></i>
+                                <span>25K</span>
+                            </div>
                         </div>
-                        <div class="px-2 border-left border-right">
-                            <i class="fa fa-cogs text-primary mr-1"></i>
-                            <span>AUTO</span>
-                        </div>
-                        <div class="px-2">
-                            <i class="fa fa-road text-primary mr-1"></i>
-                            <span>25K</span>
-                        </div>
+                        <a class="btn btn-primary px-3" href="">$99.00/Day</a>
                     </div>
-                    <a class="btn btn-primary px-3" href="">$99.00/Day</a>
                 </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mb-2">
-                <div class="rent-item active mb-4">
-                    <img class="img-fluid mb-4" src="img/car-rent-2.png" alt="">
-                    <h4 class="text-uppercase mb-4">Mercedes Benz R3</h4>
-                    <div class="d-flex justify-content-center mb-4">
-                        <div class="px-2">
-                            <i class="fa fa-car text-primary mr-1"></i>
-                            <span>2015</span>
+                <div class="col-lg-4 col-md-6 mb-2">
+                    <div class="rent-item active mb-4">
+                        <img class="img-fluid mb-4" src="img/car-rent-2.png" alt="">
+                        <h4 class="text-uppercase mb-4">Mercedes Benz R3</h4>
+                        <div class="d-flex justify-content-center mb-4">
+                            <div class="px-2">
+                                <i class="fa fa-car text-primary mr-1"></i>
+                                <span>2015</span>
+                            </div>
+                            <div class="px-2 border-left border-right">
+                                <i class="fa fa-cogs text-primary mr-1"></i>
+                                <span>AUTO</span>
+                            </div>
+                            <div class="px-2">
+                                <i class="fa fa-road text-primary mr-1"></i>
+                                <span>25K</span>
+                            </div>
                         </div>
-                        <div class="px-2 border-left border-right">
-                            <i class="fa fa-cogs text-primary mr-1"></i>
-                            <span>AUTO</span>
-                        </div>
-                        <div class="px-2">
-                            <i class="fa fa-road text-primary mr-1"></i>
-                            <span>25K</span>
-                        </div>
+                        <a class="btn btn-primary px-3" href="">$99.00/Day</a>
                     </div>
-                    <a class="btn btn-primary px-3" href="">$99.00/Day</a>
                 </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mb-2">
-                <div class="rent-item mb-4">
-                    <img class="img-fluid mb-4" src="img/car-rent-3.png" alt="">
-                    <h4 class="text-uppercase mb-4">Mercedes Benz R3</h4>
-                    <div class="d-flex justify-content-center mb-4">
-                        <div class="px-2">
-                            <i class="fa fa-car text-primary mr-1"></i>
-                            <span>2015</span>
+                <div class="col-lg-4 col-md-6 mb-2">
+                    <div class="rent-item mb-4">
+                        <img class="img-fluid mb-4" src="img/car-rent-3.png" alt="">
+                        <h4 class="text-uppercase mb-4">Mercedes Benz R3</h4>
+                        <div class="d-flex justify-content-center mb-4">
+                            <div class="px-2">
+                                <i class="fa fa-car text-primary mr-1"></i>
+                                <span>2015</span>
+                            </div>
+                            <div class="px-2 border-left border-right">
+                                <i class="fa fa-cogs text-primary mr-1"></i>
+                                <span>AUTO</span>
+                            </div>
+                            <div class="px-2">
+                                <i class="fa fa-road text-primary mr-1"></i>
+                                <span>25K</span>
+                            </div>
                         </div>
-                        <div class="px-2 border-left border-right">
-                            <i class="fa fa-cogs text-primary mr-1"></i>
-                            <span>AUTO</span>
-                        </div>
-                        <div class="px-2">
-                            <i class="fa fa-road text-primary mr-1"></i>
-                            <span>25K</span>
-                        </div>
+                        <a class="btn btn-primary px-3" href="">$99.00/Day</a>
                     </div>
-                    <a class="btn btn-primary px-3" href="">$99.00/Day</a>
                 </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mb-2">
-                <div class="rent-item mb-4">
-                    <img class="img-fluid mb-4" src="img/car-rent-4.png" alt="">
-                    <h4 class="text-uppercase mb-4">Mercedes Benz R3</h4>
-                    <div class="d-flex justify-content-center mb-4">
-                        <div class="px-2">
-                            <i class="fa fa-car text-primary mr-1"></i>
-                            <span>2015</span>
+                <div class="col-lg-4 col-md-6 mb-2">
+                    <div class="rent-item mb-4">
+                        <img class="img-fluid mb-4" src="img/car-rent-4.png" alt="">
+                        <h4 class="text-uppercase mb-4">Mercedes Benz R3</h4>
+                        <div class="d-flex justify-content-center mb-4">
+                            <div class="px-2">
+                                <i class="fa fa-car text-primary mr-1"></i>
+                                <span>2015</span>
+                            </div>
+                            <div class="px-2 border-left border-right">
+                                <i class="fa fa-cogs text-primary mr-1"></i>
+                                <span>AUTO</span>
+                            </div>
+                            <div class="px-2">
+                                <i class="fa fa-road text-primary mr-1"></i>
+                                <span>25K</span>
+                            </div>
                         </div>
-                        <div class="px-2 border-left border-right">
-                            <i class="fa fa-cogs text-primary mr-1"></i>
-                            <span>AUTO</span>
-                        </div>
-                        <div class="px-2">
-                            <i class="fa fa-road text-primary mr-1"></i>
-                            <span>25K</span>
-                        </div>
+                        <a class="btn btn-primary px-3" href="">$99.00/Day</a>
                     </div>
-                    <a class="btn btn-primary px-3" href="">$99.00/Day</a>
                 </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mb-2">
-                <div class="rent-item mb-4">
-                    <img class="img-fluid mb-4" src="img/car-rent-5.png" alt="">
-                    <h4 class="text-uppercase mb-4">Mercedes Benz R3</h4>
-                    <div class="d-flex justify-content-center mb-4">
-                        <div class="px-2">
-                            <i class="fa fa-car text-primary mr-1"></i>
-                            <span>2015</span>
+                <div class="col-lg-4 col-md-6 mb-2">
+                    <div class="rent-item mb-4">
+                        <img class="img-fluid mb-4" src="img/car-rent-5.png" alt="">
+                        <h4 class="text-uppercase mb-4">Mercedes Benz R3</h4>
+                        <div class="d-flex justify-content-center mb-4">
+                            <div class="px-2">
+                                <i class="fa fa-car text-primary mr-1"></i>
+                                <span>2015</span>
+                            </div>
+                            <div class="px-2 border-left border-right">
+                                <i class="fa fa-cogs text-primary mr-1"></i>
+                                <span>AUTO</span>
+                            </div>
+                            <div class="px-2">
+                                <i class="fa fa-road text-primary mr-1"></i>
+                                <span>25K</span>
+                            </div>
                         </div>
-                        <div class="px-2 border-left border-right">
-                            <i class="fa fa-cogs text-primary mr-1"></i>
-                            <span>AUTO</span>
-                        </div>
-                        <div class="px-2">
-                            <i class="fa fa-road text-primary mr-1"></i>
-                            <span>25K</span>
-                        </div>
+                        <a class="btn btn-primary px-3" href="">$99.00/Day</a>
                     </div>
-                    <a class="btn btn-primary px-3" href="">$99.00/Day</a>
                 </div>
-            </div>
-            <div class="col-lg-4 col-md-6 mb-2">
-                <div class="rent-item mb-4">
-                    <img class="img-fluid mb-4" src="img/car-rent-6.png" alt="">
-                    <h4 class="text-uppercase mb-4">Mercedes Benz R3</h4>
-                    <div class="d-flex justify-content-center mb-4">
-                        <div class="px-2">
-                            <i class="fa fa-car text-primary mr-1"></i>
-                            <span>2015</span>
+                <div class="col-lg-4 col-md-6 mb-2">
+                    <div class="rent-item mb-4">
+                        <img class="img-fluid mb-4" src="img/car-rent-6.png" alt="">
+                        <h4 class="text-uppercase mb-4">Mercedes Benz R3</h4>
+                        <div class="d-flex justify-content-center mb-4">
+                            <div class="px-2">
+                                <i class="fa fa-car text-primary mr-1"></i>
+                                <span>2015</span>
+                            </div>
+                            <div class="px-2 border-left border-right">
+                                <i class="fa fa-cogs text-primary mr-1"></i>
+                                <span>AUTO</span>
+                            </div>
+                            <div class="px-2">
+                                <i class="fa fa-road text-primary mr-1"></i>
+                                <span>25K</span>
+                            </div>
                         </div>
-                        <div class="px-2 border-left border-right">
-                            <i class="fa fa-cogs text-primary mr-1"></i>
-                            <span>AUTO</span>
-                        </div>
-                        <div class="px-2">
-                            <i class="fa fa-road text-primary mr-1"></i>
-                            <span>25K</span>
-                        </div>
+                        <a class="btn btn-primary px-3" href="">$99.00/Day</a>
                     </div>
-                    <a class="btn btn-primary px-3" href="">$99.00/Day</a>
-                </div>
-            </div>*@
+                </div>*@
         </div>
     </div>
 </div>

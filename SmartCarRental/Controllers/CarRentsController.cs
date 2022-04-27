@@ -40,11 +40,12 @@ namespace SmartCarRental.Controllers
         {
             var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
 
-            var applicationDbContext = _context.CarRents
+            var applicationDbContext = await _context.CarRents
                 .Include(c => c.Car)
                 .Include(c => c.Renter)
-                .Where(c => c.RenterId == currentUser.Id);
-            return View(await applicationDbContext.ToListAsync());
+                .Where(c => c.RenterId == currentUser.Id).Select(c => c.Car)
+                .ToListAsync();
+            return View(applicationDbContext);
         }
 
         // GET: CarRents/Details/5

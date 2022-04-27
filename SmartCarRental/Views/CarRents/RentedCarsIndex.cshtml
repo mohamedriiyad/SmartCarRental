@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SmartCarRental.Models.CarRent>
+﻿@model IEnumerable<SmartCarRental.Models.Car>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,7 +13,7 @@
                 </i>
             </div>
             <div>
-                Your Cars
+                Your Rented Cars
                 <div class="page-title-subheading">
 
                 </div>
@@ -21,16 +21,6 @@
         </div>
         <div class="page-title-actions">
 
-            <div class="d-inline-block">
-                <p>
-                    <a asp-action="Create" class="btn btn-primary">
-                        Add Car &nbsp; <i class="pe-7s-add-user"></i>
-                    </a>
-                    <a asp-action="RentedCarsIndex" class="btn btn-primary">
-                        Show My Booked Car &nbsp; <i class="pe-7s-add-user"></i>
-                    </a>
-                </p>
-            </div>
         </div>
     </div>
 </div>
@@ -40,22 +30,19 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Car.Name)
+                        @Html.DisplayNameFor(model => model.Name)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Car.Model)
+                        @Html.DisplayNameFor(model => model.Model)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Car.FirstLocation)
+                        @Html.DisplayNameFor(model => model.FirstLocation)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Car.SecondLocation)
+                        @Html.DisplayNameFor(model => model.SecondLocation)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Car.Description)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Car.AvailableFrom)
+                        @Html.DisplayNameFor(model => model.AvailableFrom)
                     </th>
                     @*<th>
                             Phone
@@ -74,36 +61,27 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Car.Name)
+                            @Html.DisplayFor(modelItem => item.Name)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Car.Model)
+                            @Html.DisplayFor(modelItem => item.Model)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Car.FirstLocation)
+                            @Html.DisplayFor(modelItem => item.FirstLocation)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Car.SecondLocation)
+                            @Html.DisplayFor(modelItem => item.SecondLocation)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Car.Description)
+                            @Html.DisplayFor(modelItem => item.AvailableFrom)
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Car.AvailableFrom)
-                        </td>
-                        @*<td>
-                                @Html.DisplayFor(modelItem => item.Phone)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.AvailableFrom)
-                            </td>*@
                         <td>
                             Booked Up
                         </td>
                         <td style="font-size: 20px;">
                             @*<a style="color: #afafaa;" data-toggle="tooltip" data-placement="left" title="Edit" href="@Url.Action("Create", "UserRents", new { id = item.Id})"><i title="Edit" class="fa fa-pen"></i></a>*@
 
-                            <a href="#" style="color:red;" data-placement="left" data-toggle="modal" data-target=".bd-example-modal-sm" title="Delete" onclick="confirm('@item.Car.Id')"><i class="fa fa-trash"></i></a>
+                            <a href="#" style="color:red;" data-placement="left" data-toggle="modal" data-target=".bd-example-modal-sm" title="Delete" onclick="confirm('@item.Id')"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>
                 }

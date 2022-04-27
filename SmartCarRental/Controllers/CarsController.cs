@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SmartCarRental.Data;
 using SmartCarRental.Models;
+using SmartCarRental.ViewModels.Cars;
 
 namespace SmartCarRental.Controllers
 {
@@ -30,8 +31,24 @@ namespace SmartCarRental.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Cars.Include(c => c.User);
-            return View(await applicationDbContext.ToListAsync());
+            ViewData["cars"] = await _context.Cars.Include(c => c.User).ToListAsync();
+            return View();
+        }
+        public async Task<IActionResult> Search(CarTest car)
+        {
+            var day = car.Available.Day;
+            var month = car.Available.Month;
+            var year = car.Available.Year;
+            var applicationDbContext = await _context.Cars.Include(c => c.User)
+                .Where(c => c.FirstLocation.Contains(car.Location) || c.SecondLocation.Contains(car.Location)).ToListAsync();
+
+            var cars = applicationDbContext.Where(c =>
+                (c.AvailableFrom.Day.Equals(day) &&
+                c.AvailableFrom.Month.Equals(month) &&
+                c.AvailableFrom.Year.Equals(year))).ToList();
+
+            ViewData["cars"] = cars;
+            return View("Index", car);
         }
 
         // GET: Cars/Details/5
