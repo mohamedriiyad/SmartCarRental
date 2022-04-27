@@ -50,7 +50,7 @@
                 </i>
             </div>
             <div>
-                Car Rents
+                Your Cars 
                 <div class="page-title-subheading">
 
                 </div>
@@ -61,7 +61,10 @@
             <div class="d-inline-block">
                 <p>
                     <a asp-action="Create" class="btn btn-primary">
-                        Create &nbsp; <i class="pe-7s-add-user"></i>
+                        Add Car &nbsp; <i class="pe-7s-add-user"></i>
+                    </a>
+                    <a asp-action="RentedCarsIndex" class="btn btn-primary">
+                        Show My Booked Car &nbsp; <i class="pe-7s-add-user"></i>
                     </a>
                 </p>
             </div>
@@ -80,10 +83,22 @@
                         <thead>
                             <tr>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Renter)
+                                    @Html.DisplayNameFor(model => model.Car.Name)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Car)
+                                    @Html.DisplayNameFor(model => model.Car.Model)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Car.FirstLocation)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Car.SecondLocation)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Car.Description)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Car.AvailableFrom)
                                 </th>
                                 <th>__________</th>
                             </tr>
@@ -93,10 +108,22 @@
                             {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Renter.UserName)
+                                    @Html.DisplayFor(modelItem => item.Car.Name)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Car.Name)
+                                    @Html.DisplayFor(modelItem => item.Car.Model)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Car.FirstLocation)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Car.SecondLocation)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Car.Description)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Car.AvailableFrom)
                                 </td>
                                 <td style="font-size: 20px;">
                                     <a style="color: #afafaa;" data-toggle="tooltip" data-placement="left" title="Edit" href="@Url.Action("Edit", "CarRents", new { id = item.CarId})"><i title="Edit" class="pe-7s-pen"></i></a>

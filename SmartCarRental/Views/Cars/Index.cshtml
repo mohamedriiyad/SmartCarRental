@@ -71,7 +71,7 @@
             }
         </tbody>
     </table>*@
-<div class="container-fluid p-0" style="margin-bottom: 90px;">
+<!--<div class="container-fluid p-0" style="margin-bottom: 90px;">
     <div class="app-page-title">
         <div class="page-title-wrapper">
             <div class="page-title-heading">
@@ -136,34 +136,34 @@
                             <tbody>
                                 @foreach (var item in Model)
                                 {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Name)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Model)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.FirstLocation)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.SecondLocation)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Description)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.AvailableFrom)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.User.UserName)
-                                    </td>
-                                    <td style="font-size: 20px;">
-                                        <a style="color: #afafaa;" data-toggle="tooltip" data-placement="left" title="Edit" href="@Url.Action(" Edit", "Cars" , new { id=item.Id})"><i title="Edit" class="pe-7s-pen"></i></a>
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Model)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.FirstLocation)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.SecondLocation)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Description)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.AvailableFrom)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.User.UserName)
+                                        </td>
+                                        <td style="font-size: 20px;">
+                                            <a style="color: #afafaa;" data-toggle="tooltip" data-placement="left" title="Edit" href="@Url.Action(" Create", "UserRents" , new { id=item.Id})"><i title="Edit" class="pe-7s-pen"></i></a>
 
-                                        <a href="#" style="color:red;" data-placement="left" data-toggle="modal" data-target=".bd-example-modal-sm" title="Delete" onclick="confirm('@item.Id')"><i class="pe-7s-trash"></i></a>
-                                    </td>
-                                </tr>
+                                            <a href="#" style="color:red;" data-placement="left" data-toggle="modal" data-target=".bd-example-modal-sm" title="Delete" onclick="confirm('@item.Id')"><i class="pe-7s-trash"></i></a>
+                                        </td>
+                                    </tr>
                                 }
                             </tbody>
                         </table>
@@ -171,9 +171,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
     <!--Modal-->
-    <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <!--<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content" style="margin-top: 77px;">
                 <div class="modal-header">
@@ -194,34 +194,199 @@
     </div>
 
     @section Scripts {
-    <script>
-        var confirm = function (id) {
-            $("#orderId").val(id);
-        }
+        <script>
+            var confirm = function (id) {
+                $("#orderId").val(id);
+            }
 
-        var deleteOrder = function () {
-            var _id = $("#orderId").val();
-            $.ajax({
-                type: "POST",
-                url: "/Cars/DeleteConfirmed",
-                data: { id: _id },
-                success: function (result) {
-                    if (result) {
-                        $("#deleteModal").fadeOut(500);
-                        $("#orderId").val(null);
-                        window.location.href = "/Cars/Index";
-                    } else {
-                        alert("Something went wrong while processing your request.");
+            var deleteOrder = function () {
+                var _id = $("#orderId").val();
+                $.ajax({
+                    type: "POST",
+                    url: "/Cars/DeleteConfirmed",
+                    data: { id: _id },
+                    success: function (result) {
+                        if (result) {
+                            $("#deleteModal").fadeOut(500);
+                            $("#orderId").val(null);
+                            window.location.href = "/Cars/Index";
+                        } else {
+                            alert("Something went wrong while processing your request.");
+                        }
                     }
-                }
-            });
-        }
-        
-        var cancel = function () {
-            $("#deleteModal").fadeOut(500);
-        }
-    </script>
+                });
+            }
+
+            var cancel = function () {
+                $("#deleteModal").fadeOut(500);
+            }
+        </script>
 
     }
 
+</div>-->
+
+
+<!-- Rent A Car Start -->
+<div class="container-fluid py-5">
+    <div class="container pt-5 pb-3">
+        <h1 class="display-4 text-uppercase text-center mb-5">Find Your Car</h1>
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-4 col-md-6 mb-2">
+                    <div class="rent-item mb-4">
+                        <img class="img-fluid mb-4" src="~/img/car-rent-1.png" alt="">
+                        <h4 class="text-uppercase mb-4">@Html.DisplayFor(modelItem => item.Name)</h4>
+                        <div class="d-flex justify-content-center mb-4">
+                            <div class="px-2">
+                                <i class="fa fa-car text-primary mr-1"></i>
+                                <span>@Html.DisplayFor(modelItem => item.Model)</span>
+                            </div>
+                            <div class="px-2 border-left border-right">
+                                <i class="fa fa-cogs text-primary mr-1"></i>
+                                <span>@Html.DisplayFor(modelItem => item.Description)</span>
+                            </div>
+                            <div class="px-2">
+                                <i class="fa fa-user text-primary mr-1"></i>
+                                <span>@Html.DisplayFor(modelItem => item.User.UserName)</span>
+                            </div>
+                        </div>
+                        @*<a style="color: #afafaa;" data-toggle="tooltip" data-placement="left" title="Edit" href="@Url.Action(" Edit", "Cars" , new { id=item.Id})"><i title="Edit" class="pe-7s-pen"></i></a>*@
+                        @*<a class="btn btn-primary px-3" href="@Url.Action(" Edit", "Cars" , new { id=item.Id})">Day</a>*@
+                        @Html.ActionLink("Rent", "Create", "UserRents", new { id = item.Id }, new { @class = "btn btn-primary px-3" })
+                    </div>
+                </div>
+
+            }
+
+            @*<div class="col-lg-4 col-md-6 mb-2">
+                <div class="rent-item mb-4">
+                    <img class="img-fluid mb-4" src="img/car-rent-1.png" alt="">
+                    <h4 class="text-uppercase mb-4">Mercedes Benz R3</h4>
+                    <div class="d-flex justify-content-center mb-4">
+                        <div class="px-2">
+                            <i class="fa fa-car text-primary mr-1"></i>
+                            <span>2015</span>
+                        </div>
+                        <div class="px-2 border-left border-right">
+                            <i class="fa fa-cogs text-primary mr-1"></i>
+                            <span>AUTO</span>
+                        </div>
+                        <div class="px-2">
+                            <i class="fa fa-road text-primary mr-1"></i>
+                            <span>25K</span>
+                        </div>
+                    </div>
+                    <a class="btn btn-primary px-3" href="">$99.00/Day</a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-2">
+                <div class="rent-item active mb-4">
+                    <img class="img-fluid mb-4" src="img/car-rent-2.png" alt="">
+                    <h4 class="text-uppercase mb-4">Mercedes Benz R3</h4>
+                    <div class="d-flex justify-content-center mb-4">
+                        <div class="px-2">
+                            <i class="fa fa-car text-primary mr-1"></i>
+                            <span>2015</span>
+                        </div>
+                        <div class="px-2 border-left border-right">
+                            <i class="fa fa-cogs text-primary mr-1"></i>
+                            <span>AUTO</span>
+                        </div>
+                        <div class="px-2">
+                            <i class="fa fa-road text-primary mr-1"></i>
+                            <span>25K</span>
+                        </div>
+                    </div>
+                    <a class="btn btn-primary px-3" href="">$99.00/Day</a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-2">
+                <div class="rent-item mb-4">
+                    <img class="img-fluid mb-4" src="img/car-rent-3.png" alt="">
+                    <h4 class="text-uppercase mb-4">Mercedes Benz R3</h4>
+                    <div class="d-flex justify-content-center mb-4">
+                        <div class="px-2">
+                            <i class="fa fa-car text-primary mr-1"></i>
+                            <span>2015</span>
+                        </div>
+                        <div class="px-2 border-left border-right">
+                            <i class="fa fa-cogs text-primary mr-1"></i>
+                            <span>AUTO</span>
+                        </div>
+                        <div class="px-2">
+                            <i class="fa fa-road text-primary mr-1"></i>
+                            <span>25K</span>
+                        </div>
+                    </div>
+                    <a class="btn btn-primary px-3" href="">$99.00/Day</a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-2">
+                <div class="rent-item mb-4">
+                    <img class="img-fluid mb-4" src="img/car-rent-4.png" alt="">
+                    <h4 class="text-uppercase mb-4">Mercedes Benz R3</h4>
+                    <div class="d-flex justify-content-center mb-4">
+                        <div class="px-2">
+                            <i class="fa fa-car text-primary mr-1"></i>
+                            <span>2015</span>
+                        </div>
+                        <div class="px-2 border-left border-right">
+                            <i class="fa fa-cogs text-primary mr-1"></i>
+                            <span>AUTO</span>
+                        </div>
+                        <div class="px-2">
+                            <i class="fa fa-road text-primary mr-1"></i>
+                            <span>25K</span>
+                        </div>
+                    </div>
+                    <a class="btn btn-primary px-3" href="">$99.00/Day</a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-2">
+                <div class="rent-item mb-4">
+                    <img class="img-fluid mb-4" src="img/car-rent-5.png" alt="">
+                    <h4 class="text-uppercase mb-4">Mercedes Benz R3</h4>
+                    <div class="d-flex justify-content-center mb-4">
+                        <div class="px-2">
+                            <i class="fa fa-car text-primary mr-1"></i>
+                            <span>2015</span>
+                        </div>
+                        <div class="px-2 border-left border-right">
+                            <i class="fa fa-cogs text-primary mr-1"></i>
+                            <span>AUTO</span>
+                        </div>
+                        <div class="px-2">
+                            <i class="fa fa-road text-primary mr-1"></i>
+                            <span>25K</span>
+                        </div>
+                    </div>
+                    <a class="btn btn-primary px-3" href="">$99.00/Day</a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-2">
+                <div class="rent-item mb-4">
+                    <img class="img-fluid mb-4" src="img/car-rent-6.png" alt="">
+                    <h4 class="text-uppercase mb-4">Mercedes Benz R3</h4>
+                    <div class="d-flex justify-content-center mb-4">
+                        <div class="px-2">
+                            <i class="fa fa-car text-primary mr-1"></i>
+                            <span>2015</span>
+                        </div>
+                        <div class="px-2 border-left border-right">
+                            <i class="fa fa-cogs text-primary mr-1"></i>
+                            <span>AUTO</span>
+                        </div>
+                        <div class="px-2">
+                            <i class="fa fa-road text-primary mr-1"></i>
+                            <span>25K</span>
+                        </div>
+                    </div>
+                    <a class="btn btn-primary px-3" href="">$99.00/Day</a>
+                </div>
+            </div>*@
+        </div>
+    </div>
 </div>
+<!-- Rent A Car End -->

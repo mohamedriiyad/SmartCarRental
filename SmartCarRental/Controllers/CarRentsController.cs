@@ -2,27 +2,47 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SmartCarRental.Data;
 using SmartCarRental.Models;
+using SmartCarRental.ViewModels.Cars;
 
 namespace SmartCarRental.Controllers
 {
     public class CarRentsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<User> _userManager;
 
-        public CarRentsController(ApplicationDbContext context)
+        public CarRentsController(ApplicationDbContext context, UserManager<User> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: CarRents
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.CarRents.Include(c => c.Car).Include(c => c.Renter);
+            var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
+            
+            var applicationDbContext = _context.CarRents
+                .Include(c => c.Car)
+                .Include(c => c.Renter)
+                .Where(c => c.RenterId == currentUser.Id);
+            return View(await applicationDbContext.ToListAsync());
+        }
+        //Get: RentedCarsIndex
+        public async Task<IActionResult> RentedCarsIndex()
+        {
+            var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
+
+            var applicationDbContext = _context.CarRents
+                .Include(c => c.Car)
+                .Include(c => c.Renter)
+                .Where(c => c.RenterId == currentUser.Id);
             return View(await applicationDbContext.ToListAsync());
         }
 
