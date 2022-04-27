@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,10 +14,12 @@ namespace SmartCarRental.Controllers
     public class CarsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<User> _userManager;
 
-        public CarsController(ApplicationDbContext context)
+        public CarsController(ApplicationDbContext context, UserManager<User> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Cars
@@ -51,9 +54,10 @@ namespace SmartCarRental.Controllers
         }
 
         // GET: Cars/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "UserName");
+            var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
+            ViewData["CurrentUser"] = currentUser;
             return View();
         }
 
@@ -66,11 +70,24 @@ namespace SmartCarRental.Controllers
         {
             if (ModelState.IsValid)
             {
+                var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
+                ViewData["CurrentUser"] = currentUser;
+                Car newCar = new Car
+                {
+                    Id = car.Id,
+                    Name = car.Name,
+                    Model = car.Model,
+                    FirstLocation = car.FirstLocation,
+                    SecondLocation = car.SecondLocation,
+                    Description = car.Description,
+                    AvailableFrom = car.AvailableFrom,
+                    UserId = currentUser.Id
+                };
                 _context.Add(car);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "UserName", car.UserId);
+            
             return View(car);
         }
 
