@@ -165,18 +165,18 @@
                             <li>
                                 <a href="#">
                                     <i class="metismenu-icon fas pe-7s-network"></i>
-                                    Universities
+                                    Cars
                                     <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                 </a>
                                 <ul>
                                     <li>
-                                        <a href="@Url.Action("Create","Universities")">
+                                        <a href="@Url.Action("Create","Cars")">
                                             <i class="metismenu-icon pe-7s-add-user"></i>
                                             Add University
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="@Url.Action("Index","Universities")">
+                                        <a href="@Url.Action("AdminIndex","Cars")">
                                             <i class="metismenu-icon pe-7s-users">
                                             </i>
                                             Universities List
@@ -184,7 +184,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li>
+                            @*<li>
                                 <a href="#">
                                     <i class="metismenu-icon fas pe-7s-bookmarks" style=" opacity: 45%;"></i>
                                     Departments
@@ -205,8 +205,8 @@
                                         </a>
                                     </li>
                                 </ul>
-                            </li>
-                            <li>
+                            </li>*@
+                            @*<li>
                                 <a href="#">
                                     <i class="metismenu-icon fas pe-7s-display1"></i>
                                     SmartCarRental
@@ -227,11 +227,11 @@
                                         </a>
                                     </li>
                                 </ul>
-                            </li>
+                            </li>*@
                             <li>
-                                <a asp-controller="PrerequisitesSmartCarRental" asp-action="Index">
+                                <a asp-controller="CarRents" asp-action="Index">
                                     <i class="metismenu-icon fas pe-7s-shopbag " style=" opacity: 100%;"></i>
-                                    Prerequisites
+                                    Rented Car
                                 </a>
                             </li>
                             @*<li>

@@ -28,6 +28,15 @@ namespace SmartCarRental.Controllers
             return View();
         }
 
+        public IActionResult Service()
+        {
+            return View();
+        }
+        public IActionResult Testimonials()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

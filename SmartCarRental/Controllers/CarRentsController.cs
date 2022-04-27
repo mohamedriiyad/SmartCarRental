@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using SmartCarRental.Data;
 using SmartCarRental.Models;
 using SmartCarRental.ViewModels.Cars;
+using SmartCarRental.ViewModels.UserRents;
 
 namespace SmartCarRental.Controllers
 {
@@ -28,10 +29,10 @@ namespace SmartCarRental.Controllers
         {
             var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
             
-            var applicationDbContext = _context.CarRents
+            var applicationDbContext = _context.UserRents
                 .Include(c => c.Car)
-                .Include(c => c.Renter)
-                .Where(c => c.RenterId == currentUser.Id);
+                .Include(c => c.User)
+                .Where(c => c.UserId == currentUser.Id);
             return View(await applicationDbContext.ToListAsync());
         }
         //Get: RentedCarsIndex
@@ -67,10 +68,11 @@ namespace SmartCarRental.Controllers
         }
 
         // GET: CarRents/Create
-        public IActionResult Create()
+        public async Task<IActionResult> CreateAsync()
         {
-            ViewData["CarId"] = new SelectList(_context.Cars, "Id", "Name");
-            ViewData["RenterId"] = new SelectList(_context.Users, "Id", "UserName");
+            var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
+            //ViewData["CarId"] = new SelectList(_context.Cars, "Id", "Name");
+            //ViewData["RenterId"] = new SelectList(_context.Users, "Id", "UserName");
             return View();
         }
 
@@ -79,17 +81,36 @@ namespace SmartCarRental.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RenterId,CarId")] CarRent carRent)
+        public async Task<IActionResult> Create([Bind("RenterId,CarId")] CarVM input)
         {
-            if (ModelState.IsValid)
+
+            var car = _context.Cars.Find(input.Id);
+            if (!ModelState.IsValid || car == null)
+                return View();
+            var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
+            var carRent = new CarRent { CarId = input.Id, RenterId = currentUser.Id };
+            if (_context.CarRents.Contains(carRent))
             {
-                _context.Add(carRent);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                ModelState.AddModelError("", "This Car is Already Reserved!");
+                var newCar = _context.Cars.Include(c => c.User).Where(c => c.Id == car.Id).Select(c => new CarVM
+                {
+                    Id = input.Id,
+                    Name = input.Name,
+                    Model = input.Model,
+                    FirstLocation = input.FirstLocation,
+                    SecondLocation = input.SecondLocation,
+                    Phone = currentUser.PhoneNumber,
+                    Description = input.Description,
+                    AvailableFrom = input.AvailableFrom
+                }).FirstOrDefault();
+                ViewData["Car"] = newCar;
+                return View("Create", input);
             }
-            ViewData["CarId"] = new SelectList(_context.Cars, "Id", "Name", carRent.CarId);
-            ViewData["RenterId"] = new SelectList(_context.Users, "Id", "UserName", carRent.RenterId);
-            return View(carRent);
+
+            _context.CarRents.Add(carRent);
+            _context.CarRents.Add(new CarRent { CarId = input.Id, RenterId = car.UserId });
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: CarRents/Edit/5

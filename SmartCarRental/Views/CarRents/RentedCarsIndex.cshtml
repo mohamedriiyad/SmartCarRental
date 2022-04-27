@@ -2,20 +2,38 @@
 
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<!-- Page Header Start -->
-<div class="container-fluid page-header">
-    <h1 class="display-3 text-uppercase text-white mb-3">Your Bookings</h1>
-    <div class="d-inline-flex text-white">
-        <h6 class="text-uppercase m-0"><a class="text-white" href="">Home</a></h6>
-        <h6 class="text-body m-0 px-3">/</h6>
-        <h6 class="text-uppercase text-body m-0">Booked Cars</h6>
+<div class="app-page-title">
+    <div class="page-title-wrapper">
+        <div class="page-title-heading">
+            <div class="page-title-icon">
+                <i class="pe-7s-car icon-gradient bg-happy-itmeo">
+                </i>
+            </div>
+            <div>
+                Your Cars
+                <div class="page-title-subheading">
+
+                </div>
+            </div>
+        </div>
+        <div class="page-title-actions">
+
+            <div class="d-inline-block">
+                <p>
+                    <a asp-action="Create" class="btn btn-primary">
+                        Add Car &nbsp; <i class="pe-7s-add-user"></i>
+                    </a>
+                    <a asp-action="RentedCarsIndex" class="btn btn-primary">
+                        Show My Booked Car &nbsp; <i class="pe-7s-add-user"></i>
+                    </a>
+                </p>
+            </div>
+        </div>
     </div>
 </div>
-<!-- Page Header Start -->
-
 <div class="container-fluid pt-5">
     <div class="container pt-5 pb-3">
         <table class="table" style="text-align:center">
@@ -40,11 +58,11 @@
                         @Html.DisplayNameFor(model => model.Car.AvailableFrom)
                     </th>
                     @*<th>
-            Phone
-        </th>
-        <th>
-            AvailableFrom
-        </th>*@
+                            Phone
+                        </th>
+                        <th>
+                            AvailableFrom
+                        </th>*@
                     <th>
                         Status
                     </th>
@@ -54,40 +72,40 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Car.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Car.Model)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Car.FirstLocation)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Car.SecondLocation)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Car.Description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Car.AvailableFrom)
-                    </td>
-                    @*<td>
-            @Html.DisplayFor(modelItem => item.Phone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AvailableFrom)
-        </td>*@
-                    <td>
-                        Booked Up
-                    </td>
-                    <td style="font-size: 20px;">
-                        @*<a style="color: #afafaa;" data-toggle="tooltip" data-placement="left" title="Edit" href="@Url.Action("Create", "UserRents", new { id = item.Id})"><i title="Edit" class="fa fa-pen"></i></a>*@
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Car.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Car.Model)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Car.FirstLocation)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Car.SecondLocation)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Car.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Car.AvailableFrom)
+                        </td>
+                        @*<td>
+                                @Html.DisplayFor(modelItem => item.Phone)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AvailableFrom)
+                            </td>*@
+                        <td>
+                            Booked Up
+                        </td>
+                        <td style="font-size: 20px;">
+                            @*<a style="color: #afafaa;" data-toggle="tooltip" data-placement="left" title="Edit" href="@Url.Action("Create", "UserRents", new { id = item.Id})"><i title="Edit" class="fa fa-pen"></i></a>*@
 
-                        <a href="#" style="color:red;" data-placement="left" data-toggle="modal" data-target=".bd-example-modal-sm" title="Delete" onclick="confirm('@item.Car.Id')"><i class="fa fa-trash"></i></a>
-                    </td>
-                </tr>
+                            <a href="#" style="color:red;" data-placement="left" data-toggle="modal" data-target=".bd-example-modal-sm" title="Delete" onclick="confirm('@item.Car.Id')"><i class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>
