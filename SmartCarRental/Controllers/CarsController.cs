@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -24,9 +25,18 @@ namespace SmartCarRental.Controllers
         }
 
         // GET: Cars
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> AdminIndex()
         {
             var applicationDbContext = _context.Cars.Include(c => c.User);
+            return View(await applicationDbContext.ToListAsync());
+        }
+
+        [Authorize(Roles = "renter,admin")]
+        public async Task<IActionResult> RenterIndex()
+        {
+            var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
+            var applicationDbContext = _context.Cars.Include(c => c.User).Where(c =>c.UserId == currentUser.Id);
             return View(await applicationDbContext.ToListAsync());
         }
         public async Task<IActionResult> Index()

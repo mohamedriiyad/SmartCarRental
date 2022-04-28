@@ -140,28 +140,32 @@
                                 </a>
                                 <hr />
                             </li>
-                            <li class="selected">
-                                <a href="#">
-                                    <i class="metismenu-icon pe-7s-users"></i>
-                                    Users
-                                    <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-                                </a>
-                                <ul>
-                                    <li>
-                                        <a asp-controller="Administration" asp-action="Create">
-                                            <i class="metismenu-icon pe-7s-add-user"></i>
-                                            Add User
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a asp-controller="Administration" asp-action="Index">
-                                            <i class="metismenu-icon pe-7s-users">
-                                            </i>
-                                            Users List
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
+
+                            @if (User.IsInRole("admin"))
+                            {
+                                <li class="selected">
+                                    <a href="#">
+                                        <i class="metismenu-icon pe-7s-users"></i>
+                                        Users
+                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                    </a>
+                                    <ul>
+                                        <li>
+                                            <a asp-controller="Administration" asp-action="Create">
+                                                <i class="metismenu-icon pe-7s-add-user"></i>
+                                                Add User
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a asp-controller="Administration" asp-action="Index">
+                                                <i class="metismenu-icon pe-7s-users">
+                                                </i>
+                                                Users List
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            }
                             <li>
                                 <a href="#">
                                     <i class="metismenu-icon fas pe-7s-network"></i>
@@ -176,58 +180,69 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="@Url.Action("AdminIndex","Cars")">
-                                            <i class="metismenu-icon pe-7s-users">
-                                            </i>
-                                            Cars List
-                                        </a>
+                                        @if (User.IsInRole("admin"))
+                                        {
+                                            <a href="@Url.Action("AdminIndex","Cars")">
+                                                <i class="metismenu-icon pe-7s-users">
+                                                </i>
+                                                Cars List
+                                            </a>
+                                        }
+                                        @if(User.IsInRole("renter")){
+                                            <a href="@Url.Action("RenterIndex","Cars")">
+                                                <i class="metismenu-icon pe-7s-users">
+                                                </i>
+                                                Cars List
+                                            </a>
+                                        }
+
                                     </li>
                                 </ul>
                             </li>
                             @*<li>
-                                <a href="#">
-                                    <i class="metismenu-icon fas pe-7s-bookmarks" style=" opacity: 45%;"></i>
-                                    Departments
-                                    <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-                                </a>
-                                <ul>
-                                    <li>
-                                        <a href="@Url.Action("Create","Departments")">
-                                            <i class="metismenu-icon pe-7s-add-user"></i>
-                                            Add Department
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="@Url.Action("Index","Departments")">
-                                            <i class="metismenu-icon pe-7s-users">
-                                            </i>
-                                            Departments List
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>*@
+            <a href="#">
+                <i class="metismenu-icon fas pe-7s-bookmarks" style=" opacity: 45%;"></i>
+                Departments
+                <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+            </a>
+            <ul>
+                <li>
+                    <a href="@Url.Action("Create","Departments")">
+                        <i class="metismenu-icon pe-7s-add-user"></i>
+                        Add Department
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index","Departments")">
+                        <i class="metismenu-icon pe-7s-users">
+                        </i>
+                        Departments List
+                    </a>
+                </li>
+            </ul>
+        </li>*@
                             @*<li>
-                                <a href="#">
-                                    <i class="metismenu-icon fas pe-7s-display1"></i>
-                                    SmartCarRental
-                                    <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-                                </a>
-                                <ul>
-                                    <li>
-                                        <a href="@Url.Action("Create","SmartCarRental")">
-                                            <i class="metismenu-icon pe-7s-add-user"></i>
-                                            Add Course
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="@Url.Action("AdminIndex","SmartCarRental")">
-                                            <i class="metismenu-icon pe-7s-users">
-                                            </i>
-                                            SmartCarRental List
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>*@
+            <a href="#">
+                <i class="metismenu-icon fas pe-7s-display1"></i>
+                SmartCarRental
+                <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+            </a>
+            <ul>
+                <li>
+                    <a href="@Url.Action("Create","SmartCarRental")">
+                        <i class="metismenu-icon pe-7s-add-user"></i>
+                        Add Course
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("AdminIndex","SmartCarRental")">
+                        <i class="metismenu-icon pe-7s-users">
+                        </i>
+                        SmartCarRental List
+                    </a>
+                </li>
+            </ul>
+        </li>*@
                             <li>
                                 <a asp-controller="CarRents" asp-action="RentedCarsIndex">
                                     <i class="metismenu-icon fas pe-7s-shopbag " style=" opacity: 100%;"></i>
@@ -235,23 +250,23 @@
                                 </a>
                             </li>
                             @*<li>
-                                <a href="#">
-                                    <i class="metismenu-icon fas pe-7s-tools" style=" opacity: 100%;"></i>
-                                    Support
-                                </a>
-                            </li>*@
+            <a href="#">
+                <i class="metismenu-icon fas pe-7s-tools" style=" opacity: 100%;"></i>
+                Support
+            </a>
+        </li>*@
                             @*<li>
-                                <a asp-action="Index" asp-controller="Enrollements">
-                                    <i class="metismenu-icon fas pe-7s-magic-wand " style=" opacity: 100%;"></i>
-                                    Enrolled SmartCarRental
-                                </a>
-                            </li>*@
+            <a asp-action="Index" asp-controller="Enrollements">
+                <i class="metismenu-icon fas pe-7s-magic-wand " style=" opacity: 100%;"></i>
+                Enrolled SmartCarRental
+            </a>
+        </li>*@
                             @*<li>
-                                <a href="#">
-                                    <i class="metismenu-icon fas pe-7s-magic-wand " style=" opacity: 100%;"></i>
-                                    Achievements
-                                </a>
-                            </li>*@
+            <a href="#">
+                <i class="metismenu-icon fas pe-7s-magic-wand " style=" opacity: 100%;"></i>
+                Achievements
+            </a>
+        </li>*@
                             <hr />
                             <li>
                                 <a asp-area="Identity" asp-page="/Account/Logout">
