@@ -21,7 +21,7 @@
 
     <!-- Libraries Stylesheet -->
     <link href="~/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="~/lib/tempusdominus/~/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+    <link href="~/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="~/css/bootstrap.min.css" rel="stylesheet">
@@ -48,7 +48,7 @@
     <div class="container-fluid position-relative nav-bar p-0">
         <div class="position-relative px-lg-5" style="z-index: 9;">
             <nav class="navbar navbar-expand-lg bg-secondary navbar-dark py-3 py-lg-0 pl-3 pl-lg-5">
-                <a href="" class="navbar-brand">
+                <a asp-action="Index" asp-controller="Home" class="navbar-brand">
                     <h1 class="text-uppercase text-primary mb-1">Royal Cars</h1>
                 </a>
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
@@ -67,7 +67,14 @@
                                 <a asp-action="Create" asp-controller="UsersRents" class="dropdown-item">Car Booking</a>
                             </div>
                         </div>
-                        <a asp-action="Testimonials" asp-controller="Home" class="nav-item nav-link">Testimonials</a>
+                        @if (User.IsInRole("admin"))
+                        {
+                            <a asp-action="Index" asp-controller="Administration" class="nav-item nav-link">Admin</a>
+                        }
+                        @if (User.IsInRole("renter"))
+                        {
+                            <a asp-action="RenterIndex" asp-controller="Cars" class="nav-item nav-link">Dashboard</a>
+                        }
 
                         @if (User.Identity.IsAuthenticated)
                         {
@@ -104,63 +111,10 @@
     <!-- Search End -->
     @RenderBody()
     <!-- Footer Start -->
-    <div class="container-fluid bg-secondary py-5 px-sm-3 px-md-5" style="margin-top: 90px;">
-        <div class="row pt-5">
-            </div>
-            <div class="col-lg-3 col-md-6 mb-5">
-                <h4 class="text-uppercase text-light mb-4">Usefull Links</h4>
-                <div class="d-flex flex-column justify-content-start">
-                    <a class="text-body mb-2" href="#"><i class="fa fa-angle-right text-white mr-2"></i>Private Policy</a>
-                    <a class="text-body mb-2" href="#"><i class="fa fa-angle-right text-white mr-2"></i>Term & Conditions</a>
-                    <a class="text-body mb-2" href="#"><i class="fa fa-angle-right text-white mr-2"></i>New Member Registration</a>
-                    <a class="text-body mb-2" href="#"><i class="fa fa-angle-right text-white mr-2"></i>Affiliate Programme</a>
-                    <a class="text-body mb-2" href="#"><i class="fa fa-angle-right text-white mr-2"></i>Return & Refund</a>
-                    <a class="text-body" href="#"><i class="fa fa-angle-right text-white mr-2"></i>Help & FQAs</a>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-5">
-                <h4 class="text-uppercase text-light mb-4">Car Gallery</h4>
-                <div class="row mx-n1">
-                    <div class="col-4 px-1 mb-2">
-                        <a href=""><img class="w-100" src="~/img/gallery-1.jpg" alt=""></a>
-                    </div>
-                    <div class="col-4 px-1 mb-2">
-                        <a href=""><img class="w-100" src="~/img/gallery-2.jpg" alt=""></a>
-                    </div>
-                    <div class="col-4 px-1 mb-2">
-                        <a href=""><img class="w-100" src="~/img/gallery-3.jpg" alt=""></a>
-                    </div>
-                    <div class="col-4 px-1 mb-2">
-                        <a href=""><img class="w-100" src="~/img/gallery-4.jpg" alt=""></a>
-                    </div>
-                    <div class="col-4 px-1 mb-2">
-                        <a href=""><img class="w-100" src="~/img/gallery-5.jpg" alt=""></a>
-                    </div>
-                    <div class="col-4 px-1 mb-2">
-                        <a href=""><img class="w-100" src="~/img/gallery-6.jpg" alt=""></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 mb-5">
-                <h4 class="text-uppercase text-light mb-4">Newsletter</h4>
-                <p class="mb-4">Volup amet magna clita tempor. Tempor sea eos vero ipsum. Lorem lorem sit sed elitr sed kasd et</p>
-                <div class="w-100 mb-3">
-                    <div class="input-group">
-                        <input type="text" class="form-control bg-dark border-dark" style="padding: 25px;" placeholder="Your Email">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary text-uppercase px-3">Sign Up</button>
-                        </div>
-                    </div>
-                </div>
-                <i>Lorem sit sed elitr sed kasd et</i>
-            </div>
-        </div>
     </div>
     <div class="container-fluid bg-dark py-4 px-sm-3 px-md-5">
-        <p class="mb-2 text-center text-body">&copy; <a href="#">Your Site Name</a>. All Rights Reserved.</p>
+        <p class="mb-2 text-center text-body">&copy; <a href="#"></a>All Rights Reserved.</p>
 
-        <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-        <p class="m-0 text-center text-body">Designed by <a href="https://htmlcodex.com">HTML Codex</a></p>
     </div>
     <!-- Footer End -->
     <!-- Back to Top -->
@@ -178,7 +132,7 @@
     <script src="~/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
     <!-- Template Javascript -->
-    <script src="js/main.js"></script>
+    <script src="~/js/main.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

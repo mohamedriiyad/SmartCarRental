@@ -13,6 +13,7 @@ using SmartCarRental.ViewModels.Cars;
 
 namespace SmartCarRental.Controllers
 {
+    [Authorize]
     public class CarsController : Controller
     {
         private readonly ApplicationDbContext _context;
