@@ -5,7 +5,6 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-
 <div class="app-page-title">
     <div class="page-title-wrapper">
         <div class="page-title-heading">
@@ -35,7 +34,7 @@
 
         <div class="card">
             <div class="body">
-                <form asp-action="Create" id="reg_form" class="form-horizontal">
+                <form asp-action="Create" id="reg_form" class="form-horizontal" method="post" enctype="multipart/form-data">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div style="margin-top:25px" class="form-group">
                         <div class="col-md-12">
@@ -87,14 +86,22 @@
                             <span asp-validation-for="UserId" class="text-danger"></span>
                         </div>
                     </div>
-                    @*<div class="form-group">
+                    <div class="form-group">
                         <div class="col-md-12">
-                            <label asp-for="DepartmentId" class="control-label"></label>
-                            <select asp-for="DepartmentId" class="form-control" asp-items="ViewBag.DepartmentId">
-                                <option value="0">-- Please Select It's Department --</option>
-                            </select>
+                            <label class="control-label">Image</label>
+                            <input type="file" name="file" class="form-control" required />
+                            <input id="UserId" type="text" value="@ViewBag.CurrentUser.UserName" readonly asp-for="UserId" class="form-control" />
+                            <span asp-validation-for="UserId" class="text-danger"></span>
                         </div>
-                    </div>*@
+                    </div>
+                    @*<div class="form-group">
+                            <div class="col-md-12">
+                                <label asp-for="DepartmentId" class="control-label"></label>
+                                <select asp-for="DepartmentId" class="form-control" asp-items="ViewBag.DepartmentId">
+                                    <option value="0">-- Please Select It's Department --</option>
+                                </select>
+                            </div>
+                        </div>*@
                     <div class="form-group">
                         <div class="col-md-12">
                             <input type="submit" value="Create" class="btn btn-primary" />

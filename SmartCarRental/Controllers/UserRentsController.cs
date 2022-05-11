@@ -79,6 +79,7 @@ namespace SmartCarRental.Controllers
                 SecondLocation = c.SecondLocation,
                 Phone = c.User.PhoneNumber,
                 Description = c.Description,
+                ImageUrl = c.ImgaUrl,
                 AvailableFrom = c.AvailableFrom
             }).FirstOrDefault();
             ViewData["Car"] = car;
@@ -111,6 +112,7 @@ namespace SmartCarRental.Controllers
                     SecondLocation = c.SecondLocation,
                     Phone = c.User.PhoneNumber,
                     Description = c.Description,
+                    ImageUrl = c.ImgaUrl,
                     AvailableFrom = c.AvailableFrom
                 }).FirstOrDefault();
                 ViewData["Car"] = newCar;

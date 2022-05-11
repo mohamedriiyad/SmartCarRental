@@ -26,7 +26,7 @@ namespace SmartCarRental.Models
         [Required]
         public string Description { get; set; }
         public DateTime AvailableFrom { get; set; }
-
+        public string ImgaUrl { get; set; }
         public string UserId { get; set; }
         public User User { get; set; }
         public ICollection<UserRent> UserRents { get; set; }

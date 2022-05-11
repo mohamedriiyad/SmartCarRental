@@ -5,60 +5,6 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-@*<h1>Edit</h1>
-
-<h4>Car</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Model" class="control-label"></label>
-                <input asp-for="Model" class="form-control" />
-                <span asp-validation-for="Model" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FirstLocation" class="control-label"></label>
-                <input asp-for="FirstLocation" class="form-control" />
-                <span asp-validation-for="FirstLocation" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SecondLocation" class="control-label"></label>
-                <input asp-for="SecondLocation" class="form-control" />
-                <span asp-validation-for="SecondLocation" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AvailableFrom" class="control-label"></label>
-                <input asp-for="AvailableFrom" class="form-control" />
-                <span asp-validation-for="AvailableFrom" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
-                <span asp-validation-for="UserId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>*@
 
 <div class="app-page-title">
     <div class="page-title-wrapper">
@@ -89,7 +35,7 @@
 
         <div class="card">
             <div class="body">
-                <form asp-action="Edit" id="reg_form" class="form-horizontal">
+                <form asp-action="Edit" id="reg_form" class="form-horizontal" method="post" enctype="multipart/form-data">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div style="margin-top:25px" class="form-group">
                         <div class="col-md-12">
@@ -142,14 +88,18 @@
                             </select>
                         </div>
                     </div>
-                    @*<div class="form-group">
-                            <div class="col-md-12">
-                                <label asp-for="DepartmentId" class="control-label"></label>
-                                <select asp-for="DepartmentId" class="form-control" asp-items="ViewBag.DepartmentId">
-                                    <option value="0">-- Please Select It's Department --</option>
-                                </select>
-                            </div>
-                        </div>*@
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Image<span style="color: red">*</span></label>
+                        <div class="col-md-10">
+                            <input type="file" name="file" class="form-control" onchange="onBlogImageChange(this);" />
+                            @Html.ValidationMessageFor(model => model.ImgaUrl, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <img id="blogImg" style="width: 180px; height: 123px; object-fit: cover;" src="~/@Model.ImgaUrl" />
+                        </div>
+                    </div>
                     <div class="form-group">
                         <div class="col-md-12">
                             <input type="submit" value="Save" class="btn btn-primary" />
@@ -161,5 +111,18 @@
     </div>
 </div>
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+        function onBlogImageChange(image) {
+            if (image.files && image.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#blogImg')
+                        .attr('src', e.target.result);
+                };
+
+                reader.readAsDataURL(image.files[0]);
+            }
+        }
+    </script>
 }

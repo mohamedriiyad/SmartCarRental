@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 
 namespace SmartCarRental.ViewModels.Cars
 {
@@ -9,8 +10,11 @@ namespace SmartCarRental.ViewModels.Cars
         public string Model { get; set; }
         public string FirstLocation { get; set; }
         public string SecondLocation { get; set; }
+        public string ImageUrl { get; set; }
         public string Phone { get; set; }
         public string Description { get; set; }
         public DateTime AvailableFrom { get; set; }
+        public IFormFile File { get; set; }
+        public string UserId { get; set; }
     }
 }

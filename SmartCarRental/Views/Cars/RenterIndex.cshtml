@@ -4,74 +4,6 @@
     ViewData["Title"] = "AdminIndex";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-
-@*<h1>Index</h1>
-
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Model)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.FirstLocation)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SecondLocation)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Description)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.AvailableFrom)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.User)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Model)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FirstLocation)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SecondLocation)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AvailableFrom)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.User.Id)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>*@
-
 <div class="app-page-title">
     <div class="page-title-wrapper">
         <div class="page-title-heading">
@@ -110,6 +42,9 @@
                         <thead>
                             <tr>
                                 <th>
+                                    Image
+                                </th>
+                                <th>
                                     @Html.DisplayNameFor(model => model.Name)
                                 </th>
                                 <th>
@@ -137,6 +72,9 @@
                             @foreach (var item in Model)
                             {
                                 <tr>
+                                    <td>
+                                        <img style="width: 100px; height: 70px; object-fit: cover;" class="patients-img" src="~/@item.ImgaUrl" alt="">
+                                    </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Name)
                                     </td>
@@ -187,7 +125,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="deleteOrder()">Delete</button>
+                <button type="button" class="btn btn-danger" onclick="deleteOrder()">Delete</button>
             </div>
         </div>
     </div>
@@ -205,11 +143,11 @@
                 type: "POST",
                 url: "/Cars/DeleteConfirmed",
                 data: { id: _id },
-                success: function (result) {
-                    if (result) {
+                success: function (data) {
+                    if (data.result) {
                         $("#deleteModal").fadeOut(500);
                         $("#orderId").val(null);
-                        window.location.href = "/Cars/Index";
+                        window.location.href = data.url;
                     } else {
                         alert("Something went wrong while processing your request.");
                     }
