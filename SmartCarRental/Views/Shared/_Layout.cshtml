@@ -36,81 +36,84 @@
         <div class="row">
             <div class="col-md-6 text-center text-lg-left mb-2 mb-lg-0">
                 <div class="d-inline-flex align-items-center">
-            </div>
-            <div class="col-md-6 text-center text-lg-right">
-                <div class="d-inline-flex align-items-center">
+                </div>
+                <div class="col-md-6 text-center text-lg-right">
+                    <div class="d-inline-flex align-items-center">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Topbar End -->
-    <!-- Navbar Start -->
-    <div class="container-fluid position-relative nav-bar p-0">
-        <div class="position-relative px-lg-5" style="z-index: 9;">
-            <nav class="navbar navbar-expand-lg bg-secondary navbar-dark py-3 py-lg-0 pl-3 pl-lg-5">
-                <a asp-action="Index" asp-controller="Home" class="navbar-brand">
-                    <h1 class="text-uppercase text-primary mb-1">Royal Cars</h1>
-                </a>
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
-                    <div class="navbar-nav ml-auto py-0">
-                        <a asp-action="Index" asp-controller="Home" class="nav-item nav-link active">Home</a>
-                        <a asp-action="Index" asp-controller="Cars" class="nav-item nav-link">Book a Car</a>
-                        <a asp-action="Service" asp-controller="Home" class="nav-item nav-link">Service</a>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Cars</a>
-                            <div class="dropdown-menu rounded-0 m-0">
-                                <a asp-action="Index" asp-controller="Cars" class="dropdown-item">Car Listing</a>
-                                @*<a href="detail.html" class="dropdown-item">Car Detail</a>*@
-                                <a asp-action="Create" asp-controller="UsersRents" class="dropdown-item">Car Booking</a>
-                            </div>
-                        </div>
-                        @if (User.IsInRole("admin"))
-                        {
-                            <a asp-action="Index" asp-controller="Administration" class="nav-item nav-link">Admin</a>
-                        }
-                        @if (User.IsInRole("renter"))
-                        {
-                            <a asp-action="RenterIndex" asp-controller="Cars" class="nav-item nav-link">Dashboard</a>
-                        }
+        <!-- Topbar End -->
+        <!-- Navbar Start -->
+        <div class="container-fluid position-relative nav-bar p-0">
+            <div class="position-relative px-lg-5" style="z-index: 9;">
+                <nav class="navbar navbar-expand-lg bg-secondary navbar-dark py-3 py-lg-0 pl-3 pl-lg-5">
+                    <a asp-action="Index" asp-controller="Home" class="navbar-brand">
+                        <h1 class="text-uppercase text-primary mb-1">Royal Cars</h1>
+                    </a>
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
+                        <div class="navbar-nav ml-auto py-0">
+                            <a asp-action="Index" asp-controller="Home" class="nav-item nav-link active">Home</a>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a asp-action="Index" asp-controller="Cars" class="nav-item nav-link">Book a Car</a>
+                                <a asp-action="Service" asp-controller="Home" class="nav-item nav-link">Service</a>
+                                <div class="nav-item dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Cars</a>
+                                    <div class="dropdown-menu rounded-0 m-0">
+                                        <a asp-action="Index" asp-controller="Cars" class="dropdown-item">Car Listing</a>
+                                        @*<a href="detail.html" class="dropdown-item">Car Detail</a>*@
+                                        <a asp-action="Create" asp-controller="UsersRents" class="dropdown-item">Car Booking</a>
+                                    </div>
+                                </div>
+                                @if (User.IsInRole("admin"))
+                                {
+                                    <a asp-action="Index" asp-controller="Administration" class="nav-item nav-link">Admin</a>
+                                }
+                                @if (User.IsInRole("renter"))
+                                {
+                                    <a asp-action="RenterIndex" asp-controller="Cars" class="nav-item nav-link">Dashboard</a>
+                                }
+                            }
 
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <a style="color: #a38f8f;" asp-area="Identity" asp-page="/Account/Logout" class="nav-item nav-link">Logout</a>
-                        }
-                        else
-                        {
-                            <a style="color: #a38f8f;" asp-area="Identity" asp-page="/Account/Login" class="nav-item nav-link">Login</a>
-                            <a style="color: #a38f8f;" asp-area="Identity" asp-page="/Account/Register" class="nav-item nav-link">Register</a>
-                        }
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a style="color: #a38f8f;" asp-area="Identity" asp-page="/Account/Logout" class="nav-item nav-link">Logout</a>
+                            }
+                            else
+                            {
+                                <a style="color: #a38f8f;" asp-area="Identity" asp-page="/Account/Login" class="nav-item nav-link">Login</a>
+                                <a style="color: #a38f8f;" asp-area="Identity" asp-page="/Account/Register" class="nav-item nav-link">Register</a>
+                            }
+                        </div>
                     </div>
-                </div>
-            </nav>
-        </div>
-    </div>
-    <!-- Navbar End -->
-    <!-- Search Start -->
-    <form>
-        <div class="container-fluid bg-white pt-3 px-lg-5">
-            <div class="row mx-n2">
-                <div class="col-xl-2 col-lg-4 col-md-6 px-2">
-                    <div class="date mb-3">
-                    </div>
-                </div>
-                <div class="col-xl-2 col-lg-4 col-md-6 px-2">
-                    <div class="date mb-3" id="date" data-target-input="nearest">
-                    </div>
-                </div>
-                <div class="col-xl-2 col-lg-4 col-md-6 px-2">
-                </div>
+                </nav>
             </div>
         </div>
-    </form>
-    <!-- Search End -->
-    @RenderBody()
-    <!-- Footer Start -->
+        <!-- Navbar End -->
+        <!-- Search Start -->
+        <form>
+            <div class="container-fluid bg-white pt-3 px-lg-5">
+                <div class="row mx-n2">
+                    <div class="col-xl-2 col-lg-4 col-md-6 px-2">
+                        <div class="date mb-3">
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-md-6 px-2">
+                        <div class="date mb-3" id="date" data-target-input="nearest">
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-md-6 px-2">
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- Search End -->
+        @RenderBody()
+        <!-- Footer Start -->
     </div>
     <div class="container-fluid bg-dark py-4 px-sm-3 px-md-5">
         <p class="mb-2 text-center text-body">&copy; <a href="#"></a>All Rights Reserved.</p>

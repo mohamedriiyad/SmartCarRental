@@ -6,9 +6,11 @@ namespace SmartCarRental.Data.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql(@"INSERT INTO [dbo].[AspNetUsers] ([Id], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount], [Discriminator]) VALUES (N'ceb0e823-01d9-4108-ba9d-2746d70c423d', N'admin', N'ADMIN', N'admin@car.com', N'ADMIN@CAR.COM', 0, N'AQAAAAEAACcQAAAAEJmp/21QPWPCztuQyoUpZtDGvfVVX2U+z6ImJzGIYFhE8r2pXsjImGFVKlrZ62zDUQ==', N'S73VK3T5RJSXRLOIJ3UCGZNPLANWCIP7', N'aa2ceef4-e0e7-4628-b764-9306ef317a9a', N'01200000000', 0, 0, NULL, 1, 0, N'User')
-INSERT INTO [dbo].[AspNetRoles] ([Id], [Name], [NormalizedName], [ConcurrencyStamp]) VALUES (N'573bf61a-ad1d-48e6-821c-c8e962d2ab22', N'admin', N'ADMIN', N'7dfb766d-952f-42b0-b69f-b6c4f082c836')
-INSERT INTO [dbo].[AspNetUserRoles] ([UserId], [RoleId]) VALUES (N'ceb0e823-01d9-4108-ba9d-2746d70c423d', N'573bf61a-ad1d-48e6-821c-c8e962d2ab22')
+            migrationBuilder.Sql(@"
+INSERT INTO [dbo].[AspNetUsers] ([Id], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount], [Discriminator]) VALUES (N'2a457923-8d8d-4504-a588-6d67a66d6b80', N'admin', N'ADMIN', N'admin@car.com', N'ADMIN@CAR.COM', 0, N'AQAAAAEAACcQAAAAEOss4F/wW2XnyAXRaAZsI2O2mxZXwOI8G0meQ7VdGf5wjvsrYkatrypGBD+XVTtgmw==', N'WOHRNCWIGKOI45OYOKVC7UGGUPGAO67D', N'92c56fdd-adca-4a83-817e-c36b0cc0c78d', N'01014581574', 0, 0, NULL, 1, 0, N'User')
+INSERT INTO [dbo].[AspNetRoles] ([Id], [Name], [NormalizedName], [ConcurrencyStamp]) VALUES (N'8e70bb3a-133a-460e-8da9-48b00fa4bc8e', N'admin', N'ADMIN', N'0e0de339-55f7-4054-ae37-72c05955dd44')
+INSERT INTO [dbo].[AspNetUserRoles] ([UserId], [RoleId]) VALUES (N'2a457923-8d8d-4504-a588-6d67a66d6b80', N'8e70bb3a-133a-460e-8da9-48b00fa4bc8e')
+
 ");
         }
 

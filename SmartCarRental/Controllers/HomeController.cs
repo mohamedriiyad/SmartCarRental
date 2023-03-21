@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 
 namespace SmartCarRental.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -24,16 +23,17 @@ namespace SmartCarRental.Controllers
         {
             return View();
         }
-
+        [Authorize]
         public IActionResult Privacy()
         {
             return View();
         }
-
+        [Authorize]
         public IActionResult Service()
         {
             return View();
         }
+        [Authorize]
         public IActionResult Testimonials()
         {
             return View();
